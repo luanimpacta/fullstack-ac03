@@ -1,0 +1,64 @@
+from flask import Flask, render_template, request, jsonify
+from flaskext.mysql import MySQL
+
+app = Flask(__name__)
+
+mysql = MySQL()
+
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'NpmFmMxjmSXk46k'
+app.config['MYSQL_DATABASE_DB'] = 'ac03'
+app.config['MYSQL_DATABASE_HOST'] = '172.17.0.2'
+mysql.init_app(app)
+
+
+@app.route('/')
+def welcome():
+    return "Microservice Product"
+
+
+@app.route('/create', methods=['POST'])
+def post():
+    try:
+        _name = request.form['name']
+        _category = request.form['category']
+        _price = request.form['price']
+
+        if _name and _category and _price:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+
+            sql = "INSERT INTO tb_products(name, category, price) VALUES (%s, %s, %s)"
+            value = (_name, _category, _price)
+
+            cursor.execute(sql, value)
+            conn.commit()
+
+            response = jsonify({'message': 'Usuário criado com sucesso!'})
+            response.headers.add('Access-Control-Allow-Origin', '*')
+
+            return response
+
+    except Exception as e:
+        print("Problem inserting into db: " + str(e))
+
+
+@app.route('/list', methods=['POST', 'GET'])
+def index():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+
+    query = 'SELECT name, category, price FROM tb_products'
+    cursor.execute(query)
+
+    data = cursor.fetchall()
+
+    response = jsonify({'products': data})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+
+    return response
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run(host='0.0.0.0', port=5001)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>AC03</title>
+</head>
+<body>
+
+<div class="container">
+    <a class="link" href="cadastrar-produto.html">Cadastrar produtos</a>
+
+    <div class="container-table">
+        <h1 class="product-title">Gerenciar produtos</h1>
+        <h3 class="product-subtitle">Gerencie com eficiência todos os seus produtos</h3>
+
+
+        <table class="fl-table">
+            <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+            </tr>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    function getProducts() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:5001/list',
+            success: function (callback) {
+                const {products} = callback
+
+                products.map(item => {
+                    $('#tbody').append('<tr><td>' + item[0] + '</td><td>' + item[1] + '</td><td>' + item[2] + '</td></tr>');
+                })
+
+            },
+            error: function () {
+                $(this).html("error!");
+            }
+        });
+    };
+
+    getProducts()
+</script>
+</body>
+</html>

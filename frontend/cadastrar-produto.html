@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet"/>
+    <title>AC03</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="product-title">Cadastro de produtos</h1>
+
+    <h3 class="product-subtitle">Gerencie com eficiência todos os seus produtos</h3>
+    <p class="product-text">Informe os dados do seu produto para que os cliente conheça um pouco mais sobre a sua marca</p>
+
+
+    <form class="form">
+        <div class="row">
+            <div class="field">
+                <label for="product-name" class="input-title">Nome</label>
+                <input type="text" id="product-name" name="name" placeholder="Digite o nome do seu produto" class="inputext">
+            </div>
+            <div class="field">
+                <label for="category" class="input-title">Categoria</label>
+                <input type="text" id="category" name="category" placeholder="Informe a categoria do produto" class="inputext">
+            </div>
+        </div>
+        <div class="row">
+            <div class="field">
+                <label for="price" class="input-title">Preço</label>
+                <input type="text" name="price" id="price" placeholder="Digite o preço do seu produto" class="inputext">
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="send" class="button">Cadastrar</button>
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript">
+        $('#send').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:5001/create',
+                data: $('form').serialize(),
+                success: function (callback) {
+                    window.location.href = 'gerenciar-produto.html'
+                },
+                error: function () {
+                    $(this).html("error!");
+                }
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

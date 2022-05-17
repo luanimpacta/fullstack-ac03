@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet"/>
+    <title>AC03</title>
+</head>
+<body>
+<div class="container">
+    <a class="link" href="usuarios.html">Listagem de seus usuários</a>
+    <h1 class="product-title">Entrar</h1>
+    <h3 class="product-subtitle">Entre na plataforma ac03 para gerenciar seus produtos</h3>
+    <form>
+        <div class="row">
+            <div class="field">
+                <label for="name" class="input-title">Nome</label>
+                <input placeholder="Nome completo" id="name" name="name" type="text" class="inputext">
+            </div>
+            <div class="field">
+                <label for="email" class="input-title">E-mail</label>
+                <input placeholder="Insira um E-mail existente" id="email" name="email" type="email" class="inputext">
+            </div>
+        </div>
+        <div class="row">
+            <div class="field">
+                <label for="password">Senha</label>
+                <input placeholder="password" id="password" name="password" type="password" class="inputext">
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button type="button" id="send" class="button">Entrar</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">
+    $('#send').click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:5050/signup',
+            data: $('form').serialize(),
+            success: function (callback) {
+                window.location.href = 'cadastrar-produto.html'
+            },
+            error: function () {
+                $(this).html("error!");
+            }
+        });
+    });
+</script>
+</body>
+</html>
