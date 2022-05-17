@@ -7,7 +7,7 @@ Projeto de microserviço utilizando docker, flask e mysql
 2. Yasmin Leandra Pereira da Silva | RA: 1904614
 
 ## Projeto
-O projeto foi inteiramente separado para ser trabalhado com microserviço. Ao olhar a arquitetura desse repositório você poderá notar que está separa em pastas
+O projeto foi inteiramente separado para ser trabalhado com microserviço. Ao olhar a arquitetura desse repositório você poderá notar que está separada em pastas
 
 <img src="./.github/folders.png">
 
